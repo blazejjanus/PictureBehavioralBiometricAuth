@@ -2,9 +2,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:viewmodels="clr-namespace:PictureBehavioralBiometricAuth.ViewModels;assembly=PictureBehavioralBiometricAuth"
+    xmlns:viewmodels="clr-namespace:PictureBehavioralBiometricAuth.ViewModels;assembly=PictureBehavioralBiometricAuth"
+    xmlns:resx="clr-namespace:PictureBehavioralBiometricAuth.Resources"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-			 x:DataType="viewmodels:SettingsScreenViewModel"
+    x:DataType="viewmodels:SettingsScreenViewModel"
              x:Class="PictureBehavioralBiometricAuth.Views.SettingsScreen">
 	
 	<UserControl.Styles>
@@ -39,49 +40,49 @@
 		</Style>
 	</UserControl.Styles>
 	
-	  <Grid>
-		  <Grid.ColumnDefinitions>
-			  <ColumnDefinition Width="*"/>
-		  </Grid.ColumnDefinitions>
-		  <Grid.RowDefinitions>
-			  <RowDefinition Height="Auto"/>
-			  <RowDefinition Height="Auto"/>
-			  <RowDefinition Height="Auto"/>
-			  <RowDefinition Height="Auto"/>
-			  <RowDefinition Height="Auto"/>
-			  <RowDefinition Height="Auto"/>
-			  <RowDefinition Height="Auto"/>
-			  <RowDefinition Height="Auto"/>
-		  </Grid.RowDefinitions>
-		<Label HorizontalAlignment="Left" Width="400" FontSize="15" Grid.Row="0">DataBase Connection Settings</Label>
+   <Grid>
+    <Grid.ColumnDefinitions>
+     <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+     <RowDefinition Height="Auto"/>
+     <RowDefinition Height="Auto"/>
+     <RowDefinition Height="Auto"/>
+     <RowDefinition Height="Auto"/>
+     <RowDefinition Height="Auto"/>
+     <RowDefinition Height="Auto"/>
+     <RowDefinition Height="Auto"/>
+     <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+		<Label HorizontalAlignment="Left" Width="400" FontSize="15" Grid.Row="0" Content="{x:Static resx:Common.DataBaseConnectionSettingsLabel}" />
 		<StackPanel Classes="settingsInput" Grid.Row="1">
-			<Label Classes="settingsLabel">URL</Label>
+			<Label Classes="settingsLabel" Content="{x:Static resx:Common.URLLabel}" />
 			<TextBox Classes="settingsTextBox" Text="{Binding DatabaseURL}"/>
 		</StackPanel>
 		<StackPanel Classes="settingsInput" Grid.Row="2">
-			<Label Classes="settingsLabel">Port</Label>
+			<Label Classes="settingsLabel" Content="{x:Static resx:Common.PortLabel}" />
 			<NumericUpDown Classes="settingsNumberBox" Value="{Binding DatabasePort}" ShowButtonSpinner="False" Increment="1" Minimum="0" />
 		</StackPanel>
-		 <StackPanel Classes="settingsInput" Grid.Row="3">
-			<Label Classes="settingsLabel">Db Name</Label>
+   <StackPanel Classes="settingsInput" Grid.Row="3">
+			<Label Classes="settingsLabel" Content="{x:Static resx:Common.DbNameLabel}" />
 			<TextBox Classes="settingsTextBox" Text="{Binding DatabaseName}"/>
 		</StackPanel>
 		<StackPanel Classes="settingsInput" Grid.Row="4">
-			<Label Classes="settingsLabel">Username</Label>
+			<Label Classes="settingsLabel" Content="{x:Static resx:Common.UsernameLabel}" />
 			<TextBox Classes="settingsTextBox" Text="{Binding DatabaseUsername}"/>
 		</StackPanel>
 		<StackPanel Classes="settingsInput" Grid.Row="5">
-			<Label Classes="settingsLabel">Password</Label>
+			<Label Classes="settingsLabel" Content="{x:Static resx:Common.PasswordLabel}" />
 			<TextBox Classes="settingsTextBox" Text="{Binding DatabasePassword}" PasswordChar="*"/>
 		</StackPanel>
 		<StackPanel Classes="settingsInput" Grid.Row="6">
-			<Button Classes="settingsButton" Content="Test Connection" Command="{Binding TextConnectionCommand}" />
-			<Button Classes="settingsButton" Content="Save" Command="{Binding SaveCommand}" IsEnabled="{Binding IsSaveButtonEnabled}"/>
-			<Button Classes="settingsButton" Content="Import" Command="{Binding ImportCommand}"/>
-			<Button Classes="settingsButton" Content="Export" Command="{Binding ExportCommand}" IsEnabled="{Binding IsSaveButtonEnabled}"/>
+			<Button Classes="settingsButton" Content="{x:Static resx:Common.TestConnectionButton}" Command="{Binding TextConnectionCommand}" />
+			<Button Classes="settingsButton" Content="{x:Static resx:Common.SaveButton}" Command="{Binding SaveCommand}" IsEnabled="{Binding IsSaveButtonEnabled}"/>
+			<Button Classes="settingsButton" Content="{x:Static resx:Common.ImportButton}" Command="{Binding ImportCommand}"/>
+			<Button Classes="settingsButton" Content="{x:Static resx:Common.ExportButton}" Command="{Binding ExportCommand}" IsEnabled="{Binding IsSaveButtonEnabled}"/>
 		</StackPanel>
-	  	<TextBlock Margin="10" HorizontalAlignment="Left" Width="400" FontSize="10" Grid.Row="7" 
-				   Text="{Binding ButtonsTooltip}" IsVisible="{Binding !IsSaveButtonEnabled}" 
-				   Foreground="DarkRed"/>
-	  </Grid>
+				<TextBlock Margin="10" HorizontalAlignment="Left" Width="400" FontSize="10" Grid.Row="7" 
+       Text="{x:Static resx:Common.SettingsSaveTooltip}" IsVisible="{Binding !IsSaveButtonEnabled}" 
+       Foreground="DarkRed"/>
+   </Grid>
 </UserControl>

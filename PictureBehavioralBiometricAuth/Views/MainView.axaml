@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:PictureBehavioralBiometricAuth.ViewModels"
              xmlns:local="clr-namespace:PictureBehavioralBiometricAuth.Views"
+			 xmlns:resx="clr-namespace:PictureBehavioralBiometricAuth.Resources"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="PictureBehavioralBiometricAuth.Views.MainView"
              x:DataType="vm:MainViewModel"
@@ -16,16 +17,16 @@
   </Design.DataContext>
 
 	<TabControl Margin="10">
-		<TabItem Header="Register">
-            <!-- Add your Register control here -->
+		<TabItem Header="{x:Static resx:Common.RegisterHeader}">
+            <local:UserRegistrationScreen DataContext="{Binding UserRegistrationScreenViewModel}"/>
         </TabItem>
-		<TabItem Header="Login">
+		<TabItem Header="{x:Static resx:Common.LoginHeader}">
             <!-- Add your Login control here -->
         </TabItem>
-		<TabItem Header="Settings">
+		<TabItem Header="{x:Static resx:Common.SettingsHeader}">
 			<local:SettingsScreen DataContext="{Binding SettingsScreenViewModel}"/>
         </TabItem>
-		<TabItem Header="About">
+		<TabItem Header="{x:Static resx:Common.AboutHeader}">
 			<local:AboutScreen/>
 		</TabItem>
 	</TabControl >
