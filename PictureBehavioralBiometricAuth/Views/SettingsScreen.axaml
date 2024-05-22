@@ -1,0 +1,87 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:viewmodels="clr-namespace:PictureBehavioralBiometricAuth.ViewModels;assembly=PictureBehavioralBiometricAuth"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:DataType="viewmodels:SettingsScreenViewModel"
+             x:Class="PictureBehavioralBiometricAuth.Views.SettingsScreen">
+	
+	<UserControl.Styles>
+		<Style Selector="Label.settingsLabel">
+			<Setter Property="Width" Value="150"/>
+			<Setter Property="HorizontalAlignment" Value="Left"/>
+			<Setter Property="FontSize" Value="12"/>
+		</Style>
+			
+		<Style Selector="TextBox.settingsTextBox">
+			<Setter Property="Width" Value="250"/>
+			<Setter Property="Height" Value="50" />
+			<Setter Property="HorizontalAlignment" Value="Left"/>
+		</Style>
+		
+		<Style Selector="NumericUpDown.settingsNumberBox">
+			<Setter Property="Width" Value="250"/>
+			<Setter Property="Height" Value="50" />
+			<Setter Property="HorizontalAlignment" Value="Left"/>
+		</Style>
+
+		<Style Selector="Button.settingsButton">
+			<Setter Property="Width" Value="150"/>
+			<Setter Property="Height" Value="50" />
+			<Setter Property="HorizontalAlignment" Value="Left"/>
+		</Style>
+	
+		<Style Selector="StackPanel.settingsInput">
+			<Setter Property="Orientation" Value="Horizontal"/>
+			<Setter Property="Margin" Value="10"/>
+			<Setter Property="HorizontalAlignment" Value="Left"/>
+		</Style>
+	</UserControl.Styles>
+	
+	  <Grid>
+		  <Grid.ColumnDefinitions>
+			  <ColumnDefinition Width="*"/>
+		  </Grid.ColumnDefinitions>
+		  <Grid.RowDefinitions>
+			  <RowDefinition Height="Auto"/>
+			  <RowDefinition Height="Auto"/>
+			  <RowDefinition Height="Auto"/>
+			  <RowDefinition Height="Auto"/>
+			  <RowDefinition Height="Auto"/>
+			  <RowDefinition Height="Auto"/>
+			  <RowDefinition Height="Auto"/>
+			  <RowDefinition Height="Auto"/>
+		  </Grid.RowDefinitions>
+		<Label HorizontalAlignment="Left" Width="400" FontSize="15" Grid.Row="0">DataBase Connection Settings</Label>
+		<StackPanel Classes="settingsInput" Grid.Row="1">
+			<Label Classes="settingsLabel">URL</Label>
+			<TextBox Classes="settingsTextBox" Text="{Binding DatabaseURL}"/>
+		</StackPanel>
+		<StackPanel Classes="settingsInput" Grid.Row="2">
+			<Label Classes="settingsLabel">Port</Label>
+			<NumericUpDown Classes="settingsNumberBox" Value="{Binding DatabasePort}" ShowButtonSpinner="False" Increment="1" Minimum="0" />
+		</StackPanel>
+		 <StackPanel Classes="settingsInput" Grid.Row="3">
+			<Label Classes="settingsLabel">Db Name</Label>
+			<TextBox Classes="settingsTextBox" Text="{Binding DatabaseName}"/>
+		</StackPanel>
+		<StackPanel Classes="settingsInput" Grid.Row="4">
+			<Label Classes="settingsLabel">Username</Label>
+			<TextBox Classes="settingsTextBox" Text="{Binding DatabaseUsername}"/>
+		</StackPanel>
+		<StackPanel Classes="settingsInput" Grid.Row="5">
+			<Label Classes="settingsLabel">Password</Label>
+			<TextBox Classes="settingsTextBox" Text="{Binding DatabasePassword}" PasswordChar="*"/>
+		</StackPanel>
+		<StackPanel Classes="settingsInput" Grid.Row="6">
+			<Button Classes="settingsButton" Content="Test Connection" Command="{Binding TextConnectionCommand}" />
+			<Button Classes="settingsButton" Content="Save" Command="{Binding SaveCommand}" IsEnabled="{Binding IsSaveButtonEnabled}"/>
+			<Button Classes="settingsButton" Content="Import" Command="{Binding ImportCommand}" IsEnabled="{Binding IsSaveButtonEnabled}"/>
+			<Button Classes="settingsButton" Content="Export" Command="{Binding ExportCommand}" IsEnabled="{Binding IsSaveButtonEnabled}"/>
+		</StackPanel>
+	  	<TextBlock Margin="10" HorizontalAlignment="Left" Width="400" FontSize="10" Grid.Row="7" 
+				   Text="{Binding ButtonsTooltip}" IsVisible="{Binding !IsSaveButtonEnabled}" 
+				   Foreground="DarkRed"/>
+	  </Grid>
+</UserControl>
