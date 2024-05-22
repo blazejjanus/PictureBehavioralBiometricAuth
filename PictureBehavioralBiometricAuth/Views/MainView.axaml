@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:PictureBehavioralBiometricAuth.ViewModels"
+             xmlns:local="clr-namespace:PictureBehavioralBiometricAuth.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="PictureBehavioralBiometricAuth.Views.MainView"
+             x:DataType="vm:MainViewModel"
+             Background="Gray">
+	
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <vm:MainViewModel />
+  </Design.DataContext>
+
+	<TabControl Margin="10">
+		<TabItem Header="Register">
+            <!-- Add your Register control here -->
+        </TabItem>
+		<TabItem Header="Login">
+            <!-- Add your Login control here -->
+        </TabItem>
+		<TabItem Header="Settings">
+			<local:SettingsScreen DataContext="{Binding SettingsScreenViewModel}"/>
+        </TabItem>
+		<TabItem Header="About">
+			<local:AboutScreen/>
+		</TabItem>
+	</TabControl >
+</UserControl>
