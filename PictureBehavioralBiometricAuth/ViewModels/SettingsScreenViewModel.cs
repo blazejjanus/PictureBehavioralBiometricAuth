@@ -8,14 +8,10 @@ using System.Text.Json;
 
 namespace PictureBehavioralBiometricAuth.ViewModels {
     public class SettingsScreenViewModel : ViewModelBase {
-        private readonly ApplicationContext _context;
         private bool _settingsChanged = false;
         private bool _isSaveButtonEnabled = false;
-        private string _buttonsTooltip = "You must test connection to be able to save or export settings.";
 
-        public SettingsScreenViewModel(ApplicationContext context) {
-            _context = context;
-        }
+        public SettingsScreenViewModel(ApplicationContext context) : base(context) {}
 
         public string DatabaseURL { 
             get => _context.Settings.Url;
@@ -71,14 +67,6 @@ namespace PictureBehavioralBiometricAuth.ViewModels {
             get => _isSaveButtonEnabled;
             set {
                 _isSaveButtonEnabled = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string ButtonsTooltip {
-            get => _buttonsTooltip;
-            set {
-                _buttonsTooltip = value;
                 RaisePropertyChanged();
             }
         }

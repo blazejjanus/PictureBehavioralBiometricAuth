@@ -7,6 +7,7 @@ namespace PictureBehavioralBiometricAuth {
             collection.AddSingleton<ApplicationContext>();
             collection.AddTransient<MainViewModel>();
             collection.AddTransient<SettingsScreenViewModel>();
+            collection.AddTransient<UserRegistrationScreenViewModel>();
         }
     }
 }

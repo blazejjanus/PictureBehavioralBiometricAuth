@@ -22,7 +22,7 @@ namespace PictureBehavioralBiometricAuth {
                 DbContext = new DataContext(Settings);
             } catch (Exception exc) {
                 if (exc is ConfigurationException) {
-                    DialogService.ShowDialog("Configuration Error", "The configuration file was not found or was invalid. Should default configuration be written?", ButtonEnum.YesNo, DialogCallback);
+                    DialogService.ShowDialog(Resources.Common.DialogTitleError, Resources.Common.ConfigurationNotFoundErrorDialogMessage, ButtonEnum.YesNo, DialogCallback);
                     Settings = new DbSettings();
                     Settings.WriteDbSettings();
                 }
