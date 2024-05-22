@@ -11,7 +11,7 @@ namespace PictureBehavioralBiometricAuth.ViewModels {
         private readonly ApplicationContext _context;
         private bool _settingsChanged = false;
         private bool _isSaveButtonEnabled = false;
-        private string _buttonsTooltip = "You must test connection to be able to save, import or export settings.";
+        private string _buttonsTooltip = "You must test connection to be able to save or export settings.";
 
         public SettingsScreenViewModel(ApplicationContext context) {
             _context = context;

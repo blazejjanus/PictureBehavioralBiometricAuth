@@ -77,7 +77,7 @@
 		<StackPanel Classes="settingsInput" Grid.Row="6">
 			<Button Classes="settingsButton" Content="Test Connection" Command="{Binding TextConnectionCommand}" />
 			<Button Classes="settingsButton" Content="Save" Command="{Binding SaveCommand}" IsEnabled="{Binding IsSaveButtonEnabled}"/>
-			<Button Classes="settingsButton" Content="Import" Command="{Binding ImportCommand}" IsEnabled="{Binding IsSaveButtonEnabled}"/>
+			<Button Classes="settingsButton" Content="Import" Command="{Binding ImportCommand}"/>
 			<Button Classes="settingsButton" Content="Export" Command="{Binding ExportCommand}" IsEnabled="{Binding IsSaveButtonEnabled}"/>
 		</StackPanel>
 	  	<TextBlock Margin="10" HorizontalAlignment="Left" Width="400" FontSize="10" Grid.Row="7" 
