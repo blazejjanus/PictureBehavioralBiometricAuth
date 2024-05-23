@@ -1,12 +1,18 @@
-﻿using Prism.Commands;
+﻿using PictureBehavioralBiometricAuth.Db.Models;
+using PictureBehavioralBiometricAuth.Resources;
+using PictureBehavioralBiometricAuth.Services;
+using Prism.Commands;
 
 namespace PictureBehavioralBiometricAuth.ViewModels {
     public class UserRegistrationScreenViewModel : ViewModelBase {
+        private readonly UserManagementService _userManagementService;
         private string _username = string.Empty;
         private string _errorMessage = string.Empty;
         private bool _isError = false;
 
-        public UserRegistrationScreenViewModel(ApplicationContext context) : base(context) { }
+        public UserRegistrationScreenViewModel(ApplicationContext context, UserManagementService userManagementService) : base(context) {
+            _userManagementService = userManagementService;
+        }
 
         public string Username { 
             get => _username;
@@ -34,8 +40,21 @@ namespace PictureBehavioralBiometricAuth.ViewModels {
 
         public DelegateCommand RegisterCommand => new DelegateCommand(UserRegisterAction);
 
-        private async void UserRegisterAction() {
-            //TODO: Add user service
+        private void UserRegisterAction() {
+            try {
+                _userManagementService.AddUser(new UserModel() { Username = this.Username });
+                IsError = false;
+                ClearForm();
+                _context.DialogService.ShowDialog(Common.DialogTitleSuccess, Common.UserRegistrationSuccess);
+            } catch(System.Exception exc) {
+                ErrorMessage = exc.Message;
+                _context.DialogService.ShowDialog(Common.DialogTitleError, string.Format(Common.UserRegistrationFailed, exc.Message));
+                IsError = true;
+            }
+        }
+
+        private async void ClearForm() {
+            Username = string.Empty;
         }
     }
 }

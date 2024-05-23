@@ -1,11 +1,13 @@
 ﻿using Avalonia.Controls;
 using MsBox.Avalonia.Enums;
 using PictureBehavioralBiometricAuth.Db;
+using PictureBehavioralBiometricAuth.Services;
 using PictureBehavioralBiometricAuth.Shared;
 using System;
 using System.IO;
 
-namespace PictureBehavioralBiometricAuth {
+namespace PictureBehavioralBiometricAuth
+{
     public class ApplicationContext {
         public DbSettings Settings { get; set; }
         public UserDialogService DialogService { get; } = new UserDialogService();
