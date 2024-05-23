@@ -106,6 +106,15 @@ namespace PictureBehavioralBiometricAuth.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string DialogTitleSuccess {
+            get {
+                return ResourceManager.GetString("DialogTitleSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export.
         /// </summary>
         public static string ExportButton {
@@ -223,11 +232,29 @@ namespace PictureBehavioralBiometricAuth.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User registration failed! {0}.
+        /// </summary>
+        public static string UserRegistrationFailed {
+            get {
+                return ResourceManager.GetString("UserRegistrationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register User.
         /// </summary>
         public static string UserRegistrationLabel {
             get {
                 return ResourceManager.GetString("UserRegistrationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User registered successfully!.
+        /// </summary>
+        public static string UserRegistrationSuccess {
+            get {
+                return ResourceManager.GetString("UserRegistrationSuccess", resourceCulture);
             }
         }
     }
