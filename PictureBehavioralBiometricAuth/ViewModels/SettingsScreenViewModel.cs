@@ -1,22 +1,39 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Platform.Storage;
-using PictureBehavioralBiometricAuth.Db;
+using PictureBehavioralBiometricAuth.Shared.Config;
 using Prism.Commands;
 using System;
 using System.IO;
 using System.Text.Json;
 
-namespace PictureBehavioralBiometricAuth.ViewModels {
+namespace PictureBehavioralBiometricAuth.ViewModels
+{
     public class SettingsScreenViewModel : ViewModelBase {
         private bool _settingsChanged = false;
         private bool _isSaveButtonEnabled = false;
 
         public SettingsScreenViewModel(ApplicationContext context) : base(context) {}
 
-        public string DatabaseURL { 
-            get => _context.Settings.Url;
+        public bool IsDebugMode {
+            get => _context.Settings.DebugMode;
             set {
-                _context.Settings.Url = value;
+                _context.Settings.DebugMode = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public int AuthPassThreshold {
+            get => _context.Settings.LoginPassThreshold;
+            set {
+                _context.Settings.LoginPassThreshold = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string DatabaseURL { 
+            get => _context.Settings.DbSettings.Url;
+            set {
+                _context.Settings.DbSettings.Url = value;
                 _settingsChanged = true;
                 IsSaveButtonEnabled = false;
                 RaisePropertyChanged();
@@ -24,9 +41,9 @@ namespace PictureBehavioralBiometricAuth.ViewModels {
         }
 
         public int DatabasePort { 
-            get => _context.Settings.Port;
+            get => _context.Settings.DbSettings.Port;
             set {
-                _context.Settings.Port = value;
+                _context.Settings.DbSettings.Port = value;
                 _settingsChanged = true;
                 IsSaveButtonEnabled = false;
                 RaisePropertyChanged();
@@ -34,9 +51,9 @@ namespace PictureBehavioralBiometricAuth.ViewModels {
         }
 
         public string DatabaseName { 
-            get => _context.Settings.DatabaseName;
+            get => _context.Settings.DbSettings.DatabaseName;
             set {
-                _context.Settings.DatabaseName = value;
+                _context.Settings.DbSettings.DatabaseName = value;
                 _settingsChanged = true;
                 IsSaveButtonEnabled = false;
                 RaisePropertyChanged();
@@ -44,9 +61,9 @@ namespace PictureBehavioralBiometricAuth.ViewModels {
         }
 
         public string DatabaseUsername { 
-            get => _context.Settings.User;
+            get => _context.Settings.DbSettings.User;
             set {
-                _context.Settings.User = value;
+                _context.Settings.DbSettings.User = value;
                 _settingsChanged = true;
                 IsSaveButtonEnabled = false;
                 RaisePropertyChanged();
@@ -54,9 +71,9 @@ namespace PictureBehavioralBiometricAuth.ViewModels {
         }
 
         public string DatabasePassword { 
-            get => _context.Settings.Password;
+            get => _context.Settings.DbSettings.Password;
             set {
-                _context.Settings.Password = value;
+                _context.Settings.DbSettings.Password = value;
                 _settingsChanged = true;
                 IsSaveButtonEnabled = false;
                 RaisePropertyChanged();
@@ -79,8 +96,10 @@ namespace PictureBehavioralBiometricAuth.ViewModels {
 
         public DelegateCommand ExportCommand => new DelegateCommand(ExportAction);
 
+        public DelegateCommand WriteDefaultsCommand => new DelegateCommand(WriteDefaultsAction);
+
         private void SaveSettingsAction() {
-            _context.Settings.WriteDbSettings();
+            _context.Settings.WriteSettings();
         }
 
         private void TestConnectionAction() {
@@ -137,6 +156,11 @@ namespace PictureBehavioralBiometricAuth.ViewModels {
             } catch(Exception exc) {
                 _context.DialogService.ShowDialog("Error", exc.Message);
             }
+        }
+
+        private void WriteDefaultsAction() {
+            _context.Settings = new AppSettings();
+            _context.Settings.WriteSettings();
         }
     }
 }
