@@ -3,13 +3,13 @@ using MsBox.Avalonia.Enums;
 using PictureBehavioralBiometricAuth.Db;
 using PictureBehavioralBiometricAuth.Services;
 using PictureBehavioralBiometricAuth.Shared;
+using PictureBehavioralBiometricAuth.Shared.Config;
 using System;
 using System.IO;
 
-namespace PictureBehavioralBiometricAuth
-{
+namespace PictureBehavioralBiometricAuth {
     public class ApplicationContext {
-        public DbSettings Settings { get; set; }
+        public AppSettings Settings { get; set; }
         public UserDialogService DialogService { get; } = new UserDialogService();
         public DataContext DbContext { get; private set; }
 
@@ -20,26 +20,29 @@ namespace PictureBehavioralBiometricAuth
         public ApplicationContext() {
             try {
                 CreateAppDirectoryIfNotExists();
-                Settings = DbSettings.ReadDbSettings();
-                DbContext = new DataContext(Settings);
+                Settings = AppSettings.ReadSettings();
+                DbContext = new DataContext(Settings.DbSettings);
             } catch (Exception exc) {
                 if (exc is ConfigurationException) {
                     DialogService.ShowDialog(Resources.Common.DialogTitleError, Resources.Common.ConfigurationNotFoundErrorDialogMessage, ButtonEnum.YesNo, DialogCallback);
-                    Settings = new DbSettings();
-                    Settings.WriteDbSettings();
+                    SaveDefaultSettings();
                 }
             }
         }
 
         public void Refresh() {
-            DbContext = new DataContext(Settings);
+            DbContext = new DataContext(Settings.DbSettings);
         }
 
         private void DialogCallback(ButtonResult result) {
-            if(result == ButtonResult.Yes) {
-                Settings = new DbSettings();
-                Settings.WriteDbSettings();
+            if (result == ButtonResult.Yes) {
+                SaveDefaultSettings();
             }
+        }
+
+        private void SaveDefaultSettings() {
+            Settings = new AppSettings();
+            Settings.WriteSettings();
         }
 
         private void CreateAppDirectoryIfNotExists() {

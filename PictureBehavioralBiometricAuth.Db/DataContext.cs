@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PictureBehavioralBiometricAuth.Db.Models;
+using PictureBehavioralBiometricAuth.Shared.Config;
 
 namespace PictureBehavioralBiometricAuth.Db {
     public class DataContext : DbContext {
@@ -7,7 +8,8 @@ namespace PictureBehavioralBiometricAuth.Db {
         public DbSet<UserModel> Users { get; set; }
 
         public DataContext() {
-            _dbSettings = DbSettings.ReadDbSettings();
+            var settings = AppSettings.ReadSettings();
+            _dbSettings = settings.DbSettings;
         }
 
         public DataContext(DbSettings dbSettings) {

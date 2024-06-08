@@ -70,6 +70,24 @@ namespace PictureBehavioralBiometricAuth.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application Settings.
+        /// </summary>
+        public static string ApplicationSettingsLabel {
+            get {
+                return ResourceManager.GetString("ApplicationSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login pass similarity %.
+        /// </summary>
+        public static string AuthPassThreshold {
+            get {
+                return ResourceManager.GetString("AuthPassThreshold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The configuration file was not found or was invalid. Should default configuration be written?.
         /// </summary>
         public static string ConfigurationNotFoundErrorDialogMessage {
@@ -93,6 +111,15 @@ namespace PictureBehavioralBiometricAuth.Resources {
         public static string DbNameLabel {
             get {
                 return ResourceManager.GetString("DbNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is debug mode?.
+        /// </summary>
+        public static string DebugMode {
+            get {
+                return ResourceManager.GetString("DebugMode", resourceCulture);
             }
         }
         
@@ -255,6 +282,15 @@ namespace PictureBehavioralBiometricAuth.Resources {
         public static string UserRegistrationSuccess {
             get {
                 return ResourceManager.GetString("UserRegistrationSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write defaults.
+        /// </summary>
+        public static string WriteDefaults {
+            get {
+                return ResourceManager.GetString("WriteDefaults", resourceCulture);
             }
         }
     }

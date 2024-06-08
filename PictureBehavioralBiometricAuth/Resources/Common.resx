@@ -183,4 +183,16 @@
   <data name="UserRegistrationFailed" xml:space="preserve">
     <value>User registration failed! {0}</value>
   </data>
+  <data name="WriteDefaults" xml:space="preserve">
+    <value>Write defaults</value>
+  </data>
+  <data name="ApplicationSettingsLabel" xml:space="preserve">
+    <value>Application Settings</value>
+  </data>
+  <data name="AuthPassThreshold" xml:space="preserve">
+    <value>Login pass similarity %</value>
+  </data>
+  <data name="DebugMode" xml:space="preserve">
+    <value>Is debug mode?</value>
+  </data>
 </root>

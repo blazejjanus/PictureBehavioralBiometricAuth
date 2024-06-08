@@ -28,6 +28,12 @@
 		</Style>
 
 		<Style Selector="Button.settingsButton">
+			<Setter Property="Width" Value="225"/>
+			<Setter Property="Height" Value="50" />
+			<Setter Property="HorizontalAlignment" Value="Left"/>
+		</Style>
+
+		<Style Selector="Button.settingsButtonSmall">
 			<Setter Property="Width" Value="150"/>
 			<Setter Property="Height" Value="50" />
 			<Setter Property="HorizontalAlignment" Value="Left"/>
@@ -39,50 +45,74 @@
 			<Setter Property="HorizontalAlignment" Value="Left"/>
 		</Style>
 	</UserControl.Styles>
-	
-   <Grid>
-    <Grid.ColumnDefinitions>
-     <ColumnDefinition Width="*"/>
-    </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-     <RowDefinition Height="Auto"/>
-     <RowDefinition Height="Auto"/>
-     <RowDefinition Height="Auto"/>
-     <RowDefinition Height="Auto"/>
-     <RowDefinition Height="Auto"/>
-     <RowDefinition Height="Auto"/>
-     <RowDefinition Height="Auto"/>
-     <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
-		<Label HorizontalAlignment="Left" Width="400" FontSize="15" Grid.Row="0" Content="{x:Static resx:Common.DataBaseConnectionSettingsLabel}" />
-		<StackPanel Classes="settingsInput" Grid.Row="1">
-			<Label Classes="settingsLabel" Content="{x:Static resx:Common.URLLabel}" />
-			<TextBox Classes="settingsTextBox" Text="{Binding DatabaseURL}"/>
-		</StackPanel>
-		<StackPanel Classes="settingsInput" Grid.Row="2">
-			<Label Classes="settingsLabel" Content="{x:Static resx:Common.PortLabel}" />
-			<NumericUpDown Classes="settingsNumberBox" Value="{Binding DatabasePort}" ShowButtonSpinner="False" Increment="1" Minimum="0" />
-		</StackPanel>
-   <StackPanel Classes="settingsInput" Grid.Row="3">
-			<Label Classes="settingsLabel" Content="{x:Static resx:Common.DbNameLabel}" />
-			<TextBox Classes="settingsTextBox" Text="{Binding DatabaseName}"/>
-		</StackPanel>
-		<StackPanel Classes="settingsInput" Grid.Row="4">
-			<Label Classes="settingsLabel" Content="{x:Static resx:Common.UsernameLabel}" />
-			<TextBox Classes="settingsTextBox" Text="{Binding DatabaseUsername}"/>
-		</StackPanel>
-		<StackPanel Classes="settingsInput" Grid.Row="5">
-			<Label Classes="settingsLabel" Content="{x:Static resx:Common.PasswordLabel}" />
-			<TextBox Classes="settingsTextBox" Text="{Binding DatabasePassword}" PasswordChar="*"/>
-		</StackPanel>
-		<StackPanel Classes="settingsInput" Grid.Row="6">
-			<Button Classes="settingsButton" Content="{x:Static resx:Common.TestConnectionButton}" Command="{Binding TextConnectionCommand}" />
-			<Button Classes="settingsButton" Content="{x:Static resx:Common.SaveButton}" Command="{Binding SaveCommand}" IsEnabled="{Binding IsSaveButtonEnabled}"/>
-			<Button Classes="settingsButton" Content="{x:Static resx:Common.ImportButton}" Command="{Binding ImportCommand}"/>
-			<Button Classes="settingsButton" Content="{x:Static resx:Common.ExportButton}" Command="{Binding ExportCommand}" IsEnabled="{Binding IsSaveButtonEnabled}"/>
-		</StackPanel>
-				<TextBlock Margin="10" HorizontalAlignment="Left" Width="400" FontSize="10" Grid.Row="7" 
-       Text="{x:Static resx:Common.SettingsSaveTooltip}" IsVisible="{Binding !IsSaveButtonEnabled}" 
-       Foreground="DarkRed"/>
-   </Grid>
+
+	<StackPanel Orientation="Vertical">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<Label HorizontalAlignment="Left" Width="400" FontSize="15" Grid.Row="0" Content="{x:Static resx:Common.ApplicationSettingsLabel}" />
+			<StackPanel Classes="settingsInput" Grid.Row="1">
+				<Label Classes="settingsLabel" Content="{x:Static resx:Common.DebugMode}" />
+				<CheckBox IsChecked="{Binding IsDebugMode}"/>
+			</StackPanel>
+			<StackPanel Classes="settingsInput" Grid.Row="2">
+				<Label Classes="settingsLabel" Content="{x:Static resx:Common.AuthPassThreshold}" />
+				<NumericUpDown Classes="settingsNumberBox" Value="{Binding AuthPassThreshold}" ShowButtonSpinner="False" Increment="1" Minimum="0" Maximum="99"/>
+			</StackPanel>
+		</Grid>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<Label HorizontalAlignment="Left" Width="400" FontSize="15" Grid.Row="0" Content="{x:Static resx:Common.DataBaseConnectionSettingsLabel}" />
+			<StackPanel Classes="settingsInput" Grid.Row="1">
+				<Label Classes="settingsLabel" Content="{x:Static resx:Common.URLLabel}" />
+				<TextBox Classes="settingsTextBox" Text="{Binding DatabaseURL}"/>
+			</StackPanel>
+			<StackPanel Classes="settingsInput" Grid.Row="2">
+				<Label Classes="settingsLabel" Content="{x:Static resx:Common.PortLabel}" />
+				<NumericUpDown Classes="settingsNumberBox" Value="{Binding DatabasePort}" ShowButtonSpinner="False" Increment="1" Minimum="0" />
+			</StackPanel>
+			<StackPanel Classes="settingsInput" Grid.Row="3">
+				<Label Classes="settingsLabel" Content="{x:Static resx:Common.DbNameLabel}" />
+				<TextBox Classes="settingsTextBox" Text="{Binding DatabaseName}"/>
+			</StackPanel>
+			<StackPanel Classes="settingsInput" Grid.Row="4">
+				<Label Classes="settingsLabel" Content="{x:Static resx:Common.UsernameLabel}" />
+				<TextBox Classes="settingsTextBox" Text="{Binding DatabaseUsername}"/>
+			</StackPanel>
+			<StackPanel Classes="settingsInput" Grid.Row="5">
+				<Label Classes="settingsLabel" Content="{x:Static resx:Common.PasswordLabel}" />
+				<TextBox Classes="settingsTextBox" Text="{Binding DatabasePassword}" PasswordChar="*"/>
+			</StackPanel>
+			<StackPanel Classes="settingsInput" Grid.Row="6">
+				<Button Classes="settingsButton" Content="{x:Static resx:Common.TestConnectionButton}" Command="{Binding TextConnectionCommand}" />
+				<Button Classes="settingsButton" Content="{x:Static resx:Common.SaveButton}" Command="{Binding SaveCommand}" IsEnabled="{Binding IsSaveButtonEnabled}"/>
+			</StackPanel>
+			<StackPanel Classes="settingsInput" Grid.Row="7">
+				<Button Classes="settingsButtonSmall" Content="{x:Static resx:Common.ImportButton}" Command="{Binding ImportCommand}"/>
+				<Button Classes="settingsButtonSmall" Content="{x:Static resx:Common.ExportButton}" Command="{Binding ExportCommand}" IsEnabled="{Binding IsSaveButtonEnabled}"/>
+				<Button Classes="settingsButtonSmall" Content="{x:Static resx:Common.WriteDefaults}" Command="{Binding WriteDefaultsCommand}"/>
+			</StackPanel>
+		</Grid>
+		<TextBlock Margin="10" HorizontalAlignment="Left" Width="400" FontSize="10" Grid.Row="8"
+				   Text="{x:Static resx:Common.SettingsSaveTooltip}" IsVisible="{Binding !IsSaveButtonEnabled}"
+				   Foreground="DarkRed" VerticalAlignment="Bottom"/>
+	</StackPanel>
 </UserControl>
