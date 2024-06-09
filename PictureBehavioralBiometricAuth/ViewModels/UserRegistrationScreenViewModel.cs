@@ -1,4 +1,6 @@
-﻿using PictureBehavioralBiometricAuth.Db.Models;
+﻿using Avalonia.Controls;
+using PictureBehavioralBiometricAuth.Components.Forms;
+using PictureBehavioralBiometricAuth.Db.Models;
 using PictureBehavioralBiometricAuth.Resources;
 using PictureBehavioralBiometricAuth.Services;
 using Prism.Commands;
@@ -6,13 +8,18 @@ using Prism.Commands;
 namespace PictureBehavioralBiometricAuth.ViewModels {
     public class UserRegistrationScreenViewModel : ViewModelBase {
         private readonly UserManagementService _userManagementService;
+        private readonly AuthenticationService _authenticationService;
         private string _username = string.Empty;
         private string _errorMessage = string.Empty;
         private bool _isError = false;
 
-        public UserRegistrationScreenViewModel(ApplicationContext context, UserManagementService userManagementService) : base(context) {
+        public UserRegistrationScreenViewModel(ApplicationContext context, UserManagementService userManagementService, AuthenticationService authenticationService) : base(context) {
             _userManagementService = userManagementService;
+            _authenticationService = authenticationService;
         }
+
+        public LoginForm? Form { get; set; }
+        private AuthImageModel? _authImage;
 
         public string Username { 
             get => _username;
@@ -42,7 +49,13 @@ namespace PictureBehavioralBiometricAuth.ViewModels {
 
         private void UserRegisterAction() {
             try {
-                _userManagementService.AddUser(new UserModel() { Username = this.Username });
+                if (Form == null) throw new System.Exception("Cannot find form reference, try relaunching application or wait a bit longer.");
+                _userManagementService.AddUser(new UserModel() { 
+                    Username = this.Username,
+                    RegistrationTime = System.DateTime.UtcNow,
+                    AuthImage = GetAuthImage(),
+                    Points = Form.GetAuthPoints(),
+                });
                 IsError = false;
                 ClearForm();
                 _context.DialogService.ShowDialog(Common.DialogTitleSuccess, Common.UserRegistrationSuccess);
@@ -53,8 +66,29 @@ namespace PictureBehavioralBiometricAuth.ViewModels {
             }
         }
 
+        public AuthImageModel GetAuthImage() {
+            if (_authImage != null) return _authImage;
+            var regions = LoginForm.GetRegions();
+            var image = _authenticationService.GetAuthImage("house");
+            if (image != null) {
+                return image;
+            } else {
+                image = new AuthImageModel {
+                    Name = "house",
+                    Width = 520,
+                    Height = 440,
+                    GridCellSize = LoginForm.GRID_CELL_SIZE,
+                    Regions = regions,
+                };
+                _authenticationService.AddAuthImage(image);
+                _authImage = image;
+                return image;
+            }
+        }
+
         private async void ClearForm() {
             Username = string.Empty;
+            Form?.ClearForm();
         }
     }
 }

@@ -6,6 +6,9 @@ namespace PictureBehavioralBiometricAuth.Db {
     public class DataContext : DbContext {
         private readonly DbSettings _dbSettings;
         public DbSet<UserModel> Users { get; set; }
+        public DbSet<AuthImageModel> AuthImages { get; set; }
+        public DbSet<AuthImageRegionModel> AuthImageRegions { get; set; }
+        public DbSet<AuthPointModel> AuthPoints { get; set; }
 
         public DataContext() {
             var settings = AppSettings.ReadSettings();
