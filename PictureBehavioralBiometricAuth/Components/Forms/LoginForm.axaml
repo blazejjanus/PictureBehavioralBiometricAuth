@@ -1,9 +1,14 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"             xmlns:controls="using:PictureBehavioralBiometricAuth.Components.Controls"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:PictureBehavioralBiometricAuth.Components.Controls"
+             mc:Ignorable="d" d:DesignWidth="520" d:DesignHeight="440"
+			 Width="520" Height="440"
              x:Class="PictureBehavioralBiometricAuth.Components.Forms.LoginForm">
-	
-	<controls:ImageAuthenticationInput />
+
+	<Grid>
+		<Image Source="/Assets/house.jpg" />
+		<Canvas Background="Transparent"  x:Name="Draw" />
+	</Grid>
 </UserControl>

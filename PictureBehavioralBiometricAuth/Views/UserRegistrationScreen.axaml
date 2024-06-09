@@ -3,7 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:viewmodels="clr-namespace:PictureBehavioralBiometricAuth.ViewModels;assembly=PictureBehavioralBiometricAuth"
-			 xmlns:resx="clr-namespace:PictureBehavioralBiometricAuth.Resources"xmlns:forms="using:PictureBehavioralBiometricAuth.Components.Forms"
+			 xmlns:resx="clr-namespace:PictureBehavioralBiometricAuth.Resources"
+xmlns:forms="using:PictureBehavioralBiometricAuth.Components.Forms"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 x:DataType="viewmodels:UserRegistrationScreenViewModel"
              x:Class="PictureBehavioralBiometricAuth.Views.UserRegistrationScreen">
@@ -11,26 +12,26 @@
 	<UserControl.Styles>
 		<Style Selector="Label.formLabel">
 			<Setter Property="Width" Value="150"/>
-			<Setter Property="HorizontalAlignment" Value="Left"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
 			<Setter Property="FontSize" Value="12"/>
 		</Style>
 
 		<Style Selector="TextBox.formTextBox">
 			<Setter Property="Width" Value="250"/>
 			<Setter Property="Height" Value="50" />
-			<Setter Property="HorizontalAlignment" Value="Left"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
 		</Style>
 
 		<Style Selector="Button.formButton">
 			<Setter Property="Width" Value="150"/>
 			<Setter Property="Height" Value="50" />
-			<Setter Property="HorizontalAlignment" Value="Left"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
 		</Style>
 
 		<Style Selector="StackPanel.formInput">
 			<Setter Property="Orientation" Value="Horizontal"/>
 			<Setter Property="Margin" Value="10"/>
-			<Setter Property="HorizontalAlignment" Value="Left"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
 		</Style>
 	</UserControl.Styles>
 
@@ -46,7 +47,7 @@
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="Auto"/>
 			</Grid.RowDefinitions>
-			<Label HorizontalAlignment="Left" Width="400" FontSize="20" Grid.Row="0" Content="{x:Static resx:Common.UserRegistrationLabel}" />
+			<Label HorizontalAlignment="Center" Width="400" FontSize="20" Grid.Row="0" Content="{x:Static resx:Common.UserRegistrationLabel}" />
 			<StackPanel Classes="formInput" Grid.Row="1">
 				<Label Classes="formLabel" Content="{x:Static resx:Common.UsernameLabel}"/>
 				<TextBox Classes="formTextBox" Text="{Binding Username}"/>
@@ -54,12 +55,12 @@
 			<StackPanel Classes="formInput" Grid.Row="2">
 				<Label Classes="formLabel" Content="PLACEHOLDER"/>
 			</StackPanel>
-			<StackPanel Classes="formInput" Grid.Row="3">
+			<forms:LoginForm x:Name="Form" Grid.Row="3" />
+			<StackPanel Classes="formInput" Grid.Row="4">
 				<Button Classes="formButton" Content="{x:Static resx:Common.RegisterButton}" Command="{Binding RegisterCommand}"/>
 			</StackPanel>
-			<forms:LoginForm Grid.Row="4" />
 		</Grid>
-		<TextBlock Margin="10" HorizontalAlignment="Left" Width="400" FontSize="10" VerticalAlignment="Bottom"
+		<TextBlock Margin="10" HorizontalAlignment="Center" Width="400" FontSize="10" VerticalAlignment="Bottom"
 					   Text="{Binding ErrorMessage}" IsVisible="{Binding IsError}"
 					   Foreground="DarkRed"/>
 	</StackPanel>
