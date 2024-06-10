@@ -1,20 +1,17 @@
-﻿using Avalonia.Controls;
-using PictureBehavioralBiometricAuth.Components.Forms;
+﻿using PictureBehavioralBiometricAuth.Components.Forms;
 using PictureBehavioralBiometricAuth.Db.Models;
 using PictureBehavioralBiometricAuth.Resources;
 using PictureBehavioralBiometricAuth.Services;
 using Prism.Commands;
+using System;
 
 namespace PictureBehavioralBiometricAuth.ViewModels {
-    public class UserRegistrationScreenViewModel : ViewModelBase {
+    public class LoginScreenViewModel : ViewModelBase {
         private readonly UserManagementService _userManagementService;
         private readonly AuthenticationService _authenticationService;
         private LoginForm? _form;
-        private string _username = string.Empty;
-        private string _errorMessage = string.Empty;
-        private bool _isError = false;
 
-        public UserRegistrationScreenViewModel(ApplicationContext context, UserManagementService userManagementService, AuthenticationService authenticationService) : base(context) {
+        public LoginScreenViewModel(ApplicationContext context, UserManagementService userManagementService, AuthenticationService authenticationService) : base(context) {
             _userManagementService = userManagementService;
             _authenticationService = authenticationService;
         }
@@ -29,11 +26,15 @@ namespace PictureBehavioralBiometricAuth.ViewModels {
                 _form.DisplayRegions = _context.Settings.DebugMode;
             }
         }
-        private AuthImageModel? _authImage;
 
-        public string Username { 
+        private AuthImageModel? _authImage;
+        private bool _isError = false;
+        private string _errorMessage = string.Empty;
+        private string _username = string.Empty;
+
+        public string Username {
             get => _username;
-            set { 
+            set {
                 _username = value;
                 RaisePropertyChanged();
             }
@@ -55,23 +56,29 @@ namespace PictureBehavioralBiometricAuth.ViewModels {
             }
         }
 
-        public DelegateCommand RegisterCommand => new DelegateCommand(UserRegisterAction);
+        public DelegateCommand LoginCommand => new DelegateCommand(UserLoginAction);
 
-        private void UserRegisterAction() {
+        private void UserLoginAction() {
             try {
-                if (Form == null) throw new System.Exception("Cannot find form reference, try relaunching application or wait a bit longer.");
-                _userManagementService.AddUser(new UserModel() { 
+                if (Form == null) throw new Exception("Cannot find form reference, try relaunching application or wait a bit longer.");
+                _userManagementService.AddUser(new UserModel() {
                     Username = this.Username,
-                    RegistrationTime = System.DateTime.UtcNow,
+                    RegistrationTime = DateTime.UtcNow,
                     AuthImage = GetAuthImage(),
                     Points = Form.GetAuthPoints(),
                 });
+                var user = _userManagementService.GetUser(Username);
+                if(user == null) throw new Exception("User does not exist!");
+                var points = Form.GetAuthPoints();
+                if(!_authenticationService.LoginUser(Username, user.AuthImage.Name, points, out int detectedSimilarity)) {
+                    throw new Exception($"Points similarity: {detectedSimilarity}%, {_context.Settings.LoginPassThreshold}% is required to login.");
+                }
                 IsError = false;
                 ClearForm();
-                _context.DialogService.ShowDialog(Common.DialogTitleSuccess, Common.UserRegistrationSuccess);
-            } catch(System.Exception exc) {
+                _context.DialogService.ShowDialog(Common.DialogTitleSuccess, Common.UserLoginSuccessfull + $"\nPoints similarity: {detectedSimilarity}%");
+            } catch (Exception exc) {
                 ErrorMessage = exc.Message;
-                _context.DialogService.ShowDialog(Common.DialogTitleError, string.Format(Common.UserRegistrationFailed, exc.Message));
+                _context.DialogService.ShowDialog(Common.DialogTitleError, string.Format(Common.UserLoginFailed, exc.Message));
                 IsError = true;
             }
         }

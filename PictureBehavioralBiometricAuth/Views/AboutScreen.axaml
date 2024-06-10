@@ -4,5 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="PictureBehavioralBiometricAuth.Views.AboutScreen">
-  Welcome to Avalonia!
+	<StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+		<Label FontSize="20" Content="Picture Behavioral Biometric Authentication"/>
+		<Label FontSize="15" Content="Usage:"/>
+		<Label FontSize="12" Content="1. Go to registration screen"/>
+		<Label FontSize="12" Content="	1.1 Type your username (can only contain letters and numbers)"/>
+		<Label FontSize="12" Content="	1.2 Click on 5 points on authentication image. Points cannot be too close to each other. Try to focus on characteristic objects on image."/>
+		<Label FontSize="12" Content="	1.3 Click on Register button"/>
+		<Label FontSize="12" Content="2. Go to login screen"/>
+		<Label FontSize="12" Content="	2.1 Type your username"/>
+		<Label FontSize="12" Content="	2.2 Click on 5 points you established during registration."/>
+		<Label FontSize="12" Content="	Click on Login button"/>
+	</StackPanel>
 </UserControl>

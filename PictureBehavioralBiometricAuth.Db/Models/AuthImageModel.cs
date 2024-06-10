@@ -11,5 +11,7 @@ namespace PictureBehavioralBiometricAuth.Db.Models {
         public int Width { get; set; } = 0;
         public int Height { get; set; } = 0;
         public int GridCellSize { get; set; } = 0;
+
+        
     }
 }

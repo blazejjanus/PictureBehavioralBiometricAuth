@@ -13,5 +13,9 @@ namespace PictureBehavioralBiometricAuth.Db.Models {
         public int Y { get; set; } = 0;
         public int Width { get; set; } = 0;
         public int Height { get; set; } = 0;
+
+        public bool ContainsPoint(AuthPointModel point) {
+            return point.X >= X && point.X <= X + Width && point.Y >= Y && point.Y <= Y + Height;
+        }
     }
 }

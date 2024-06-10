@@ -3,6 +3,8 @@ using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Media;
 using PictureBehavioralBiometricAuth.Db.Models;
+using PictureBehavioralBiometricAuth.Utils;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -36,12 +38,14 @@ namespace PictureBehavioralBiometricAuth.Components.Forms {
                 }
             }
         }
+        public EventHandler<string> ErrorHandler { get; set; }
         public AuthImageModel AuthImage { get; private set; }
         private List<Rectangle> _regions = new List<Rectangle>();
         private List<Line> _verticalLines = new List<Line>();
         private List<Line> _horizontalLines = new List<Line>();
         private List<Ellipse> _drawedPoints = new List<Ellipse>();
         private List<Point> _userPoints = new List<Point>();
+        private Models.Grid? _grid;
 
         public LoginForm() {
             InitializeComponent();
@@ -55,12 +59,15 @@ namespace PictureBehavioralBiometricAuth.Components.Forms {
         }
 
         public List<AuthPointModel> GetAuthPoints() {
-            if(_userPoints.Count < 5) {
+            if (_userPoints.Count < 5) {
                 throw new System.Exception("Not enough points selected, please select 5 points.");
             }
             var points = new List<AuthPointModel>();
-            foreach(var point in _userPoints) {
+            int counter = 0;
+            foreach (var point in _userPoints) {
+                counter++;
                 points.Add(new AuthPointModel() {
+                    Number = counter,
                     X = (int)point.X,
                     Y = (int)point.Y,
                 });
@@ -69,13 +76,13 @@ namespace PictureBehavioralBiometricAuth.Components.Forms {
         }
 
         public void ClearForm() {
-            foreach(var point in _drawedPoints) {
+            foreach (var point in _drawedPoints) {
                 this.Draw.Children.Remove(point);
             }
             _drawedPoints.Clear();
         }
 
-        public static  List<AuthImageRegionModel> GetRegions() {
+        public static List<AuthImageRegionModel> GetRegions() {
             var regions = new List<AuthImageRegionModel>();
             #region Image Regions Declarations
             regions.Add(new AuthImageRegionModel {
@@ -153,7 +160,6 @@ namespace PictureBehavioralBiometricAuth.Components.Forms {
         }
 
         private void CreateGrid() {
-            DisplayGrid = true;
             int numVerticalLines = (int)Width / GRID_CELL_SIZE;
             int numHorizontalLines = (int)Height / GRID_CELL_SIZE;
             for (int i = 0; i < numVerticalLines; i++) {
@@ -178,10 +184,10 @@ namespace PictureBehavioralBiometricAuth.Components.Forms {
                 _horizontalLines.Add(line);
                 this.Draw.Children.Add(line);
             }
+            _grid = new Models.Grid(AuthImage);
         }
 
         private void CreateRegions() {
-            DisplayRegions = true;
             foreach (var region in AuthImage.Regions) {
                 var rectangle = new Rectangle {
                     Fill = Brushes.Transparent,
@@ -200,6 +206,9 @@ namespace PictureBehavioralBiometricAuth.Components.Forms {
         private void UserControl_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e) {
             var click = e.GetPosition(this);
             if (_userPoints.Count < 5) {
+                if (CheckNewPointIsDuplicate(click)) {
+                    ErrorHandler.Invoke(this, "Cannot add 2 clicks in the same cell!");
+                }
                 _userPoints.Add(click);
                 var point = new Ellipse {
                     Fill = Brushes.Blue,
@@ -210,7 +219,19 @@ namespace PictureBehavioralBiometricAuth.Components.Forms {
                 _drawedPoints.Add(point);
                 this.Draw.Children.Add(point);
                 Debug.WriteLine($"UserControl pressed! X:{click.X}, Y:{click.Y}");
+            } else {
+                ErrorHandler.Invoke(this, "Cannot add more than 5 points!");
             }
+        }
+
+        private bool CheckNewPointIsDuplicate(Point newPoint) {
+            if (_grid == null) throw new Exception("Grid is not initialized!");
+            foreach (var point in _userPoints) {
+                if(_grid.CheckPointsInSameCell(newPoint.GetAuthPoint(), point.GetAuthPoint())) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
