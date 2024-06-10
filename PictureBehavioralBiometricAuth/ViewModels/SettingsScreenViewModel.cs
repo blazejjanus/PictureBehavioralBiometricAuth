@@ -127,13 +127,15 @@ namespace PictureBehavioralBiometricAuth.ViewModels
                     await using var stream = await files[0].OpenReadAsync();
                     using var streamReader = new StreamReader(stream);
                     var fileContent = await streamReader.ReadToEndAsync();
-                    var config = JsonSerializer.Deserialize<DbSettings>(fileContent ?? throw new NullReferenceException("Config file is empty.")) 
+                    var config = JsonSerializer.Deserialize<AppSettings>(fileContent ?? throw new NullReferenceException("Config file is empty.")) 
                         ?? throw new NullReferenceException("Deserialized config file was null!");
-                    DatabaseURL = config.Url;
-                    DatabasePort = config.Port;
-                    DatabaseName = config.DatabaseName;
-                    DatabaseUsername = config.User;
-                    DatabasePassword = config.Password;
+                    DatabaseURL = config.DbSettings.Url;
+                    DatabasePort = config.DbSettings.Port;
+                    DatabaseName = config.DbSettings.DatabaseName;
+                    DatabaseUsername = config.DbSettings.User;
+                    DatabasePassword = config.DbSettings.Password;
+                    IsDebugMode = config.DebugMode;
+                    AuthPassThreshold = config.LoginPassThreshold;
                     _settingsChanged = true;
                     IsSaveButtonEnabled = false;
                 }
