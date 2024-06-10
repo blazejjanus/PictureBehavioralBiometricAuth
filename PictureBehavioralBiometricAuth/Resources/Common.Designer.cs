@@ -162,6 +162,15 @@ namespace PictureBehavioralBiometricAuth.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
+        public static string LofginButton {
+            get {
+                return ResourceManager.GetString("LofginButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
         public static string LoginHeader {
             get {
                 return ResourceManager.GetString("LoginHeader", resourceCulture);
@@ -246,6 +255,33 @@ namespace PictureBehavioralBiometricAuth.Resources {
         public static string URLLabel {
             get {
                 return ResourceManager.GetString("URLLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login Failure.
+        /// </summary>
+        public static string UserLoginFailed {
+            get {
+                return ResourceManager.GetString("UserLoginFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login Screen.
+        /// </summary>
+        public static string UserLoginLabel {
+            get {
+                return ResourceManager.GetString("UserLoginLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login Successful.
+        /// </summary>
+        public static string UserLoginSuccessfull {
+            get {
+                return ResourceManager.GetString("UserLoginSuccessfull", resourceCulture);
             }
         }
         

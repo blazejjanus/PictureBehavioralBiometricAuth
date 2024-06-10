@@ -12,27 +12,38 @@ namespace PictureBehavioralBiometricAuth.Services {
         }
 
         public List<UserModel> GetUsers() {
-            return _context.DbContext.Users.ToList();
+            return _context.DbContext.Users.Where(x => !x.IsDeleted).ToList();
         }
 
         public List<UserModel> SearchUsers(string search) {
-            return _context.DbContext.Users.Where(x => IsSimilarSimple(x.Username, search, 75)).ToList();
+            return _context.DbContext.Users.Where(x => IsSimilarSimple(x.Username, search, 75) && !x.IsDeleted).ToList();
         }
 
         public UserModel? GetUser(string username) {
-            return _context.DbContext.Users.FirstOrDefault(x => x.Username == username);
+            var user = _context.DbContext.Users.FirstOrDefault(x => x.Username == username && !x.IsDeleted);
+            if(user == null) return null;
+            user.AuthImage = _context.DbContext.AuthImages.Where(x => x.Id == user.AuthImage.Id).First();
+            user.Points = _context.DbContext.AuthPoints.Where(x => x.User.Id == user.Id).ToList();
+            return user;
         }
 
         public void AddUser(UserModel user) {
+            user.Username = user.Username.Trim();
+            if (string.IsNullOrEmpty(user.Username)) throw new Exception("Username cannot be null or empty string.");
+            if (!user.Username.All(c => char.IsDigit(c) || char.IsLetter(c))) throw new Exception("Usranme can contain only letters and numbers!");
             if (_context.DbContext.Users.Any(x => x.Username == user.Username)) throw new Exception("User with same username already exists!");
             _context.DbContext.Users.Add(user);
             _context.DbContext.SaveChanges();
         }
 
-        public void DeleteUser(string username) {
+        public void DeleteUser(string username, bool hard = false) {
             var user = _context.DbContext.Users.FirstOrDefault(x => x.Username == username);
             if (user == null) throw new Exception("User does not exist!");
-            _context.DbContext.Users.Remove(user);
+            if (hard) {
+                _context.DbContext.Users.Remove(user);
+            } else {
+                user.IsDeleted = true;
+            }
             _context.DbContext.SaveChanges();
         }
 

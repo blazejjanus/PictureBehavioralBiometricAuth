@@ -17,17 +17,17 @@
   </Design.DataContext>
 
 	<TabControl Margin="10">
+		<TabItem Header="{x:Static resx:Common.AboutHeader}">
+			<local:AboutScreen/>
+		</TabItem>
 		<TabItem Header="{x:Static resx:Common.RegisterHeader}">
             <local:UserRegistrationScreen DataContext="{Binding UserRegistrationScreenViewModel}"/>
         </TabItem>
 		<TabItem Header="{x:Static resx:Common.LoginHeader}">
-            <!-- Add your Login control here -->
+            <local:LoginScreen DataContext="{Binding LoginScreenViewModel}"/>
         </TabItem>
 		<TabItem Header="{x:Static resx:Common.SettingsHeader}">
 			<local:SettingsScreen DataContext="{Binding SettingsScreenViewModel}"/>
         </TabItem>
-		<TabItem Header="{x:Static resx:Common.AboutHeader}">
-			<local:AboutScreen/>
-		</TabItem>
 	</TabControl >
 </UserControl>

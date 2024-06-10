@@ -6,8 +6,8 @@
 			 xmlns:resx="clr-namespace:PictureBehavioralBiometricAuth.Resources"
 		     xmlns:forms="using:PictureBehavioralBiometricAuth.Components.Forms"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-			 x:DataType="viewmodels:UserRegistrationScreenViewModel"
-             x:Class="PictureBehavioralBiometricAuth.Views.UserRegistrationScreen">
+			 x:DataType="viewmodels:LoginScreenViewModel"
+             x:Class="PictureBehavioralBiometricAuth.Views.LoginScreen">
 
 	<UserControl.Styles>
 		<Style Selector="Label.formLabel">
@@ -47,7 +47,7 @@
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="Auto"/>
 			</Grid.RowDefinitions>
-			<Label HorizontalAlignment="Center" Width="400" FontSize="20" Grid.Row="0" Content="{x:Static resx:Common.UserRegistrationLabel}" />
+			<Label HorizontalAlignment="Center" Width="400" FontSize="20" Grid.Row="0" Content="{x:Static resx:Common.UserLoginLabel}" />
 			<StackPanel Classes="formInput" Grid.Row="1">
 				<Label Classes="formLabel" Content="{x:Static resx:Common.UsernameLabel}"/>
 				<TextBox Classes="formTextBox" Text="{Binding Username}"/>
@@ -57,7 +57,7 @@
 			</StackPanel>
 			<forms:LoginForm x:Name="Form" Grid.Row="3" />
 			<StackPanel Classes="formInput" Grid.Row="4">
-				<Button Classes="formButton" Content="{x:Static resx:Common.RegisterButton}" Command="{Binding RegisterCommand}"/>
+				<Button Classes="formButton" Content="{x:Static resx:Common.LofginButton}" Command="{Binding LoginCommand}"/>
 			</StackPanel>
 		</Grid>
 		<TextBlock Margin="10" HorizontalAlignment="Center" Width="400" FontSize="10" VerticalAlignment="Bottom"
