@@ -60,7 +60,7 @@ namespace PictureBehavioralBiometricAuth.Components.Forms {
 
         public List<AuthPointModel> GetAuthPoints() {
             if (_userPoints.Count < 5) {
-                throw new System.Exception("Not enough points selected, please select 5 points.");
+                throw new Exception("Not enough points selected, please select 5 points.");
             }
             var points = new List<AuthPointModel>();
             int counter = 0;
@@ -79,6 +79,7 @@ namespace PictureBehavioralBiometricAuth.Components.Forms {
             foreach (var point in _drawedPoints) {
                 this.Draw.Children.Remove(point);
             }
+            _userPoints.Clear();
             _drawedPoints.Clear();
         }
 
@@ -208,6 +209,7 @@ namespace PictureBehavioralBiometricAuth.Components.Forms {
             if (_userPoints.Count < 5) {
                 if (CheckNewPointIsDuplicate(click)) {
                     ErrorHandler.Invoke(this, "Cannot add 2 clicks in the same cell!");
+                    return;
                 }
                 _userPoints.Add(click);
                 var point = new Ellipse {

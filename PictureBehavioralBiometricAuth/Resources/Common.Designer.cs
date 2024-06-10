@@ -268,6 +268,15 @@ namespace PictureBehavioralBiometricAuth.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Login Screen.
+        /// </summary>
+        public static string UserLoginLabel {
+            get {
+                return ResourceManager.GetString("UserLoginLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login Successful.
         /// </summary>
         public static string UserLoginSuccessfull {

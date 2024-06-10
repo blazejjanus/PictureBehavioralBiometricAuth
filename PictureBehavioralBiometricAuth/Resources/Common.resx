@@ -204,4 +204,7 @@
   <data name="LofginButton" xml:space="preserve">
     <value>Login</value>
   </data>
+  <data name="UserLoginLabel" xml:space="preserve">
+    <value>Login Screen</value>
+  </data>
 </root>

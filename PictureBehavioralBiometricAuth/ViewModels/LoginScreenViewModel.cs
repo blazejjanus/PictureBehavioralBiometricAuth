@@ -61,12 +61,6 @@ namespace PictureBehavioralBiometricAuth.ViewModels {
         private void UserLoginAction() {
             try {
                 if (Form == null) throw new Exception("Cannot find form reference, try relaunching application or wait a bit longer.");
-                _userManagementService.AddUser(new UserModel() {
-                    Username = this.Username,
-                    RegistrationTime = DateTime.UtcNow,
-                    AuthImage = GetAuthImage(),
-                    Points = Form.GetAuthPoints(),
-                });
                 var user = _userManagementService.GetUser(Username);
                 if(user == null) throw new Exception("User does not exist!");
                 var points = Form.GetAuthPoints();
@@ -78,7 +72,8 @@ namespace PictureBehavioralBiometricAuth.ViewModels {
                 _context.DialogService.ShowDialog(Common.DialogTitleSuccess, Common.UserLoginSuccessfull + $"\nPoints similarity: {detectedSimilarity}%");
             } catch (Exception exc) {
                 ErrorMessage = exc.Message;
-                _context.DialogService.ShowDialog(Common.DialogTitleError, string.Format(Common.UserLoginFailed, exc.Message));
+                _context.DialogService.ShowDialog(Common.DialogTitleError, Common.UserLoginFailed + exc.Message);
+                ClearForm();
                 IsError = true;
             }
         }

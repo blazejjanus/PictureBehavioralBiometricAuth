@@ -47,7 +47,7 @@
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="Auto"/>
 			</Grid.RowDefinitions>
-			<Label HorizontalAlignment="Center" Width="400" FontSize="20" Grid.Row="0" Content="{x:Static resx:Common.UserRegistrationLabel}" />
+			<Label HorizontalAlignment="Center" Width="400" FontSize="20" Grid.Row="0" Content="{x:Static resx:Common.UserLoginLabel}" />
 			<StackPanel Classes="formInput" Grid.Row="1">
 				<Label Classes="formLabel" Content="{x:Static resx:Common.UsernameLabel}"/>
 				<TextBox Classes="formTextBox" Text="{Binding Username}"/>

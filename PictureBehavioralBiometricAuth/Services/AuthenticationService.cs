@@ -6,17 +6,17 @@ using System.Linq;
 
 namespace PictureBehavioralBiometricAuth.Services {
     public class AuthenticationService {
-        public const int MAX_OUT_OF_ORDER_ITEMS = 2;
+        public const int MAX_OUT_OF_ORDER_ITEMS = 4;
         //A - variable
         public const double POINTS_IN_SAME_CELL_FACTOR = 1;
-        public const double POINTS_IN_NEIGHBOUR_CELL_FACTOR = 0.5;
-        public const double POINTS_IN_OTHER_CELLS_FACTOR = 0;
+        public const double POINTS_IN_NEIGHBOUR_CELL_FACTOR = 0.75;
+        public const double POINTS_IN_OTHER_CELLS_FACTOR = 0.1;
         //B - variable
-        public const double POINTS_IN_SAME_REGION_FACTOR = 1;
+        public const double POINTS_IN_SAME_REGION_FACTOR = 7;
         public const double POINTS_IN_DIFFERENT_REGIONS_FACTOR = 0;
         //C - variable
         public const double POINTS_IN_SAME_ORDER_FACTOR = 1;
-        public const double POINTS_IN_DIFFERENT_ORDER_FACTOR = 0;
+        public const double POINTS_IN_DIFFERENT_ORDER_FACTOR = 0.1;
 
         private ApplicationContext _context;
         private UserManagementService _userManagementService;
@@ -90,11 +90,11 @@ namespace PictureBehavioralBiometricAuth.Services {
         }
 
         private double GetPointsSimilarity(double a, double b, double c) {
-            return a * b * c;
+            return a * 1 + b * 1 + c * 1;
         }
 
-        private double GetMaxPointSimilarity() {
-            return GetPointsSimilarity(POINTS_IN_SAME_CELL_FACTOR, POINTS_IN_SAME_REGION_FACTOR, POINTS_IN_SAME_ORDER_FACTOR);
+        private double GetMaxPointSimilarity(int n = 5) {
+            return n * GetPointsSimilarity(POINTS_IN_SAME_CELL_FACTOR, POINTS_IN_SAME_REGION_FACTOR, POINTS_IN_SAME_ORDER_FACTOR);
         }
 
         private double GetPointsOrderSimilarityFactor(AuthPointModel testPoint, AuthPointModel authPoint) {
